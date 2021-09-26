@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="css/hw3.css" rel="stylesheet">
+    <script src="js/hw3.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <form>
+            <fieldset>
+                <legend>
+                    Enter size of the table:
+                </legend>
+                <p>Horizontal (multiplier)</p>
+                <label>
+                    Start row:
+                    <input type="text" id="fCol" name="fCol" size="1" value="-50">
+                </label>
+                <label id="valFCol"></label>
+                <br />
+                <label>
+                    End row:
+                    <input type="text" id="eCol" name="eCol" size="1" value="50">
+                </label>
+                <label id="valECol"></label>
+                <p>Vertical (multiplicand)</p>
+                <label>
+                    Start column:
+                    <input type="text" id="fRow" name="fRow" size="1" value="-50">
+                </label>
+                <label id="valFRow"></label>
+                <br />
+                <label>
+                    End column:
+                    <input type="text" id="eRow" name="eRow" size="1" value="50">
+                </label>
+                <label id="valERow"></label>
+                <br />
+                <button type="button" onclick="drawTable()">Generate</button>
+            </fieldset>
+        </form>
+        <div id="displayTab"></div>
+    </div>
+</body>
+
+</html>

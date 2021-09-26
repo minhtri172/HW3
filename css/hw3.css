@@ -1,0 +1,100 @@
+#wrapper {
+    width: 100%;
+}
+
+legend {
+    font-size: 120%;
+}
+
+form {
+    float: left;
+}
+
+fieldset {
+    margin-right: 100px;
+    margin-bottom: 100px;
+}
+
+#displayTab {
+    margin-top: 50px;
+    overflow: auto;
+    width: 800px;
+    height: 600px;
+}
+
+#fCol, #fRow {
+    margin-left: 5px;
+}
+
+#eCol, #eRow {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+table {
+   text-align: center;
+   border-collapse: collapse;
+   width: 100%;
+   height: 100%;
+}
+
+td {
+    border: 1px solid black;
+    max-width: 150px;
+    height: 50px;
+    min-width: 50px;
+}
+
+table > tr:first-child {
+    background-color: black;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+table > tr:first-child > td + td {
+    border-right: 2px solid white;
+    border-top: none;
+}
+
+table > tr:first-child > td:last-child {
+    border-right: 1px solid black;
+}
+
+table > tr:first-child > td:first-child {
+    background-color: white;
+}
+
+table > tr > td:first-child {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid white;
+    position: sticky;
+    left: 0;
+}
+
+table > tr:last-child > td:first-child {
+    border-bottom: 1px solid black;
+}
+
+table > tr:nth-child(1) > td:first-child {
+    border: none;
+}
+
+table > tr:not(tr:first-child):nth-child(odd) > td:not(td:first-child):nth-child(even) {
+    background-color: yellow;
+}
+
+table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-child(odd) {
+    background-color: yellow;
+}
+
+button {
+    margin-top: 10px;
+    margin-left: 155px;
+}
+
+#valFCol, #valECol, #valFRow, #valERow {
+    color: red;
+    margin-left: 10px;
+}
