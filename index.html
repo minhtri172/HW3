@@ -1,50 +1,59 @@
+<!--
+    File: index.html
+    GUI Assigment: Creating an Interactive Dynamic Table
+    Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
+    Copyright (C) 2021 by Minh Le. 
+    Updated by ML on September 26, 2021 at 7:00pm 
+    This website creates an Interactive Dynamic Table where 
+    users can enter 4 numbers for horizontal (multiplier) and vertical (multiplicand).
+-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Dynamic Table</title>
     <link href="css/hw3.css" rel="stylesheet">
-    <script src="js/hw3.js"></script>
 </head>
 
 <body>
     <div id="wrapper">
-        <form>
+        <form onsubmit ="return false">
             <fieldset>
                 <legend>
                     Enter size of the table:
                 </legend>
-                <p>Horizontal (multiplier)</p>
+                <p>Vertical (multiplicand)</p>
                 <label>
-                    Start row:
-                    <input type="text" id="fCol" name="fCol" size="1" value="-50">
+                    Start:
+                    <input type="text" id="fCol" name="fCol" size="1">
                 </label>
                 <label id="valFCol"></label>
                 <br />
                 <label>
-                    End row:
-                    <input type="text" id="eCol" name="eCol" size="1" value="50">
+                    End:
+                    <input type="text" id="eCol" name="eCol" size="1">
                 </label>
                 <label id="valECol"></label>
-                <p>Vertical (multiplicand)</p>
+                <p>Horizontal (multiplier)</p>
                 <label>
-                    Start column:
-                    <input type="text" id="fRow" name="fRow" size="1" value="-50">
+                    Start:
+                    <input type="text" id="fRow" name="fRow" size="1">
                 </label>
                 <label id="valFRow"></label>
                 <br />
                 <label>
-                    End column:
-                    <input type="text" id="eRow" name="eRow" size="1" value="50">
+                    End:
+                    <input type="text" id="eRow" name="eRow" size="1">
                 </label>
                 <label id="valERow"></label>
                 <br />
-                <button type="button" onclick="drawTable()">Generate</button>
+                <input type="submit" id="btnGen" value="Generate"></input>
             </fieldset>
         </form>
         <div id="displayTab"></div>
     </div>
+    <script src="js/hw3.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,16 @@
+/*
+    File: hw3.js
+    GUI Assigment: Creating an Interactive Dynamic Table
+    Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
+    Copyright (C) 2021 by Minh Le. 
+    Updated by ML on September 26, 2021 at 7:00pm
+*/
+
+// Button
+var btnGen = document.getElementById("btnGen");
+btnGen.addEventListener("click", drawTable, false);
+
+// draw the table
 function drawTable() {
     var fCol = document.getElementById("fCol").value;
     var eCol = document.getElementById("eCol").value;
@@ -5,118 +18,156 @@ function drawTable() {
     var eRow = document.getElementById("eRow").value;
 
     // debug
-    console.log("first col: " + fCol);
+    /*console.log("first col: " + fCol);
     console.log("end col: " + eCol);
     console.log("first row: " + fRow);
-    console.log("end row: " + eRow);
+    console.log("end row: " + eRow);*/
 
-    // delete val labels
-    if (document.getElementById("valFCol").textContent != "") {
-        document.getElementById("valFCol").innerHTML = "";
+    // check validation - if input numbers are not null, convert to number; otherwise, catch the error
+    if (isEmptyField(fCol, eCol, fRow, eRow)) {
+        // Check if not numbers
+        if (isNumerics(fCol, eCol, fRow, eRow)) {
+            // convert string to numbers
+            fCol = parseInt(fCol);
+            eCol = parseInt(eCol);
+            fRow = parseInt(fRow);
+            eRow = parseInt(eRow);
+            // Check outside of range[-50,50]
+            if (isInRange(fCol, eCol, fRow, eRow, -50, 50)) {
+                // Clear validation messages
+                document.getElementById("valFCol").innerHTML = "";
+                document.getElementById("valECol").innerHTML = "";
+                document.getElementById("valFRow").innerHTML = "";
+                document.getElementById("valERow").innerHTML = "";
+
+                // create table
+                createTable(fCol, eCol, fRow, eRow);
+            }
+        }
     }
+}
 
-    if (document.getElementById("valECol").textContent != "") {
-        document.getElementById("valECol").innerHTML = "";
-    }
-
-    if (document.getElementById("valFRow").textContent != "") {
-        document.getElementById("valFRow").innerHTML = "";
-    }
-
-    if (document.getElementById("valERow").textContent != "") {
-        document.getElementById("valERow").innerHTML = "";
-    }
-
+// check if the field is empty
+function isEmptyField(x1, x2, y1, y2) {
     // Boolean
     var isValFC = false;
     var isValEC = false;
     var isValFR = false;
     var isValER = false;
 
-    // check validation - if != "", convert to number; otherwise, catch the error
-    if (fCol != "" && eCol != "" && fRow != "" && eRow != "") {
-
-        // Check if not numbers
-        // create a function to create table
-        if (!isNaN(fCol) && !isNaN(eCol) && !isNaN(fRow) && !isNaN(eRow)) {
-            // Check outside of range[-50,50]
-            if ((fCol >= -50 && fCol <= 50)
-                && (eCol >= -50 && eCol <= 50)
-                && (fRow >= -50 && fRow <= 50)
-                && (eRow >= -50 && eRow <= 50)) {
-
-                // convert string to numbers
-                fCol = parseInt(fCol);
-                eCol = parseInt(eCol);
-                fRow = parseInt(fRow);
-                eRow = parseInt(eRow);
-
-                // start > end
-                if (eCol >= fCol && eRow >= fRow) {
-                    // create table
-                    createTable(fCol, eCol, fRow, eRow);
-                } else {
-                    if (fCol > eCol) {
-                        isValEC = true;
-                    }
-                    if (fRow > eRow) {
-                        isValER = true;
-                    }
-                    validationMessage(isValFC, isValEC, isValFR, isValER, "Error: End Number > Start Number.");
-                }
-            } else {
-                if (fCol < -50 || fCol > 50) {
-                    isValFC = true;
-                }
-                if (eCol < -50 || eCol > 50) {
-                    isValEC = true;
-                }
-                if (fRow < -50 || fRow > 50) {
-                    isValFR = true;
-                }
-                if (eRow < -50 || eRow > 50) {
-                    isValER = true;
-                }
-                validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Out of range [-50, 50].");
-            }
-
-        } else {
-            if (isNaN(fCol)) {
-                isValFC = true;
-            }
-            if (isNaN(eCol)) {
-                isValEC = true;
-            }
-            if (isNaN(fRow)) {
-                isValFR = true;
-            }
-            if (isNaN(eRow)) {
-                isValER = true;
-            }
-            validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Incorrect Number Format.");
-        }
+    if (x1 != "" && x2 != "" && y1 != "" && y2 != "") {
+        return true;
     } else {
-        if (fCol == "") {
+        if (x1 == "") {
             isValFC = true;
         }
-        if (eCol == "") {
+        if (x2 == "") {
             isValEC = true;
         }
-        if (fRow == "") {
+        if (y1 == "") {
             isValFR = true;
         }
-        if (eRow == "") {
+        if (y2 == "") {
             isValER = true;
         }
         validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Blank Field.");
+        return false;
     }
 }
 
+// Check if the input is numberic or not
+function isNumerics(x1, x2, y1, y2) {
+    // Boolean
+    var isValFC = false;
+    var isValEC = false;
+    var isValFR = false;
+    var isValER = false;
+
+    if (!isNaN(x1) && !isNaN(x2) && !isNaN(y1) && !isNaN(y2)) {
+        return true;
+    } else {
+        if (isNaN(x1)) {
+            isValFC = true;
+        }
+        if (isNaN(x2)) {
+            isValEC = true;
+        }
+        if (isNaN(y1)) {
+            isValFR = true;
+        }
+        if (isNaN(y2)) {
+            isValER = true;
+        }
+        validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Not a Number.");
+        return false;
+    }
+}
+
+// Check if the input numbers in a specific range
+function isInRange(x1, x2, y1, y2, start, end) {
+    // Boolean
+    var isValFC = false;
+    var isValEC = false;
+    var isValFR = false;
+    var isValER = false;
+
+    if ((x1 >= start && x1 <= end)
+        && (x2 >= start && x2 <= end)
+        && (y1 >= start && y1 <= end)
+        && (y2 >= start && y2 <= end)) {
+        return true;
+    } else {
+        if (x1 < start || x1 > end) {
+            isValFC = true;
+        }
+        if (x2 < start || x2 > end) {
+            isValEC = true;
+        }
+        if (y1 < start || y1 > end) {
+            isValFR = true;
+        }
+        if (y2 < start || y2 > end) {
+            isValER = true;
+        }
+        validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Out of range [-50, 50].");
+        return false;
+    }
+}
+
+// Check if the end number is greater than the start number
+function isEndGreaterThanStart(x1, x2, y1, y2) {
+    // Boolean
+    var isValFC = false;
+    var isValEC = false;
+    var isValFR = false;
+    var isValER = false;
+
+    if (x2 >= x1 && y2 >= y1) {
+        return true;
+    } else {
+        if (x1 > x2) {
+            isValEC = true;
+        }
+        if (y1 > y2) {
+            isValER = true;
+        }
+        validationMessage(isValFC, isValEC, isValFR, isValER, "Error: Start Number > End Number.");
+        return false;
+    }
+}
+
+// Display validation messages
 function validationMessage(isValFC, isValEC, isValFR, isValER, msg) {
     // delete the table before create a new one
     if (document.getElementById("myTable") !== null) {
         document.getElementById("myTable").remove();
     }
+
+    // debug
+    /*console.log("first col: " + isValFC);
+    console.log("end col: " + isValEC);
+    console.log("first row: " + isValFR);
+    console.log("end row: " + isValER);*/
 
     // Empty field
     if (isValFC) {
@@ -141,50 +192,163 @@ function validationMessage(isValFC, isValEC, isValFR, isValER, msg) {
     }
 }
 
+// Create the table
 function createTable(x1, x2, y1, y2) {
     // delete the table before create a new one
     if (document.getElementById('myTable') !== null) {
         document.getElementById("myTable").remove();
     }
 
-    var wrapper = document.getElementById("wrapper");
     var tab = document.createElement("TABLE");
     tab.setAttribute("id", "myTable");
-    //wrapper.appendChild(tab);
-    
+
     var container = document.getElementById("displayTab");
     container.appendChild(tab);
-    
+
     // create rows
     var i, j, tr_index;
-    tr_index = 0;
+    tr_index = 0; // index of the TR
 
-    for (i = x1; i <= x2 + 1; i++) {
-        if (i == x1) { // First row
-            var rows = document.createElement("TR");
-            tab.appendChild(rows);
-            var cols = document.createElement("TD");
-            tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+    // Check if end > start
+    if (x1 > x2 && y1 > y2) { // end col > start col and end row > start row
+        for (i = y1; i >= y2 - 1; i--) {
+            if (i == y1) {
+                // First row (Top Header)
+                var rows = document.createElement("TR"); // create first TR (first row)
+                tab.appendChild(rows); // add it to table
+                var cols = document.createElement("TD"); // create the first TD (detail)
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to the first row
 
-            for (j = y1; j <= y2; j++) {
-                var cols = document.createElement("TD");
-                cols.appendChild(document.createTextNode(j));
-                tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+                // Create other TD on the first row
+                for (j = x1; j >= x2; j--) {
+                    var cols = document.createElement("TD");
+                    cols.appendChild(document.createTextNode(j));
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+                }
+                tr_index++;
+            } else {
+                // rows 2nd and more
+                var rows = document.createElement("TR"); // create TR
+                tab.appendChild(rows); // add it to table
+
+                // Left Header
+                var cols = document.createElement("TD"); // create TD
+                cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+
+                // Create other next TD (columns)
+                for (j = x1; j >= x2; j--) {
+                    var cols = document.createElement("TD"); // create TD
+                    cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                }
+                tr_index++;
             }
-            tr_index++;
-        } else { // rows 2 -> ++
-            var rows = document.createElement("TR");
-            tab.appendChild(rows);
-            var cols = document.createElement("TD");
-            console.log(i);
-            cols.appendChild(document.createTextNode(i - 1));
-            tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
-            for (j = y1; j <= y2; j++) {
-                var cols = document.createElement("TD");
-                cols.appendChild(document.createTextNode((i - 1) * j));
-                tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+        }
+    } else if (x1 > x2 && y1 < y2) { // end col > start col and end row < start row
+        for (i = y1; i <= y2 + 1; i++) {
+            if (i == y1) {
+                // First row (Top Header)
+                var rows = document.createElement("TR"); // create first TR (first row)
+                tab.appendChild(rows); // add it to table
+                var cols = document.createElement("TD"); // create the first TD (detail)
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to the first row
+
+                // Create other TD on the first row
+                for (j = x1; j >= x2; j--) {
+                    var cols = document.createElement("TD");
+                    cols.appendChild(document.createTextNode(j));
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+                }
+                tr_index++;
+            } else {
+                // rows 2nd and more
+                var rows = document.createElement("TR"); // create TR
+                tab.appendChild(rows); // add it to table
+
+                // Left Header
+                var cols = document.createElement("TD"); // create TD
+                cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+
+                // Create other next TD (columns)
+                for (j = x1; j >= x2; j--) {
+                    var cols = document.createElement("TD"); // create TD
+                    cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                }
+                tr_index++;
             }
-            tr_index++;
+        }
+    } else if (x1 < x2 && y1 > y2) { // end col < start col and end row > start row
+        for (i = y1; i >= y2 - 1; i--) {
+            if (i == y1) {
+                // First row (Top Header)
+                var rows = document.createElement("TR"); // create first TR (first row)
+                tab.appendChild(rows); // add it to table
+                var cols = document.createElement("TD"); // create the first TD (detail)
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to the first row
+
+                // Create other TD on the first row
+                for (j = x1; j <= x2; j++) {
+                    var cols = document.createElement("TD");
+                    cols.appendChild(document.createTextNode(j));
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+                }
+                tr_index++;
+            } else {
+                // rows 2nd and more
+                var rows = document.createElement("TR"); // create TR
+                tab.appendChild(rows); // add it to table
+
+                // Left Header
+                var cols = document.createElement("TD"); // create TD
+                cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+
+                // Create other next TD (columns)
+                for (j = x1; j <= x2; j++) {
+                    var cols = document.createElement("TD"); // create TD
+                    cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                }
+                tr_index++;
+            }
+        }
+    } else { // end col >= start col and end row >= start row
+        for (i = y1; i <= y2 + 1; i++) {
+            if (i == y1) {
+                // First row (Top Header)
+                var rows = document.createElement("TR"); // create first TR (first row)
+                tab.appendChild(rows); // add it to table
+                var cols = document.createElement("TD"); // create the first TD (detail)
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to the first row
+
+                // Create other TD on the first row
+                for (j = x1; j <= x2; j++) {
+                    var cols = document.createElement("TD");
+                    cols.appendChild(document.createTextNode(j));
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
+                }
+                tr_index++;
+            } else {
+                // rows 2nd and more
+                var rows = document.createElement("TR"); // create TR
+                tab.appendChild(rows); // add it to table
+
+                // Left Header
+                var cols = document.createElement("TD"); // create TD
+                cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
+                tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+
+                // Create other next TD
+                for (j = x1; j <= x2; j++) {
+                    var cols = document.createElement("TD"); // create TD
+                    cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                }
+                tr_index++;
+            }
         }
     }
 }
