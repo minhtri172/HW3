@@ -3,7 +3,7 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on September 26, 2021 at 7:00pm
+    Updated by ML on Oct 3, 2021 at 11:00am
 */
 
 // Button
