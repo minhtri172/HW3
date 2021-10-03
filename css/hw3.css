@@ -111,7 +111,7 @@ table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-chil
 }
 
 /* Style for the button */
-#btnGen {
+button {
     margin-top: 10px;
     margin-left: 44px;
 }

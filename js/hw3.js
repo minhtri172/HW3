@@ -245,7 +245,7 @@ function createTable(x1, x2, y1, y2) {
                 tr_index++;
             }
         }
-    } else if (x1 > x2 && y1 < y2) { // end col > start col and end row < start row
+    } else if (x1 > x2 && y1 <= y2) { // end col > start col and end row < start row
         for (i = y1; i <= y2 + 1; i++) {
             if (i == y1) {
                 // First row (Top Header)
@@ -280,7 +280,7 @@ function createTable(x1, x2, y1, y2) {
                 tr_index++;
             }
         }
-    } else if (x1 < x2 && y1 > y2) { // end col < start col and end row > start row
+    } else if (x1 <= x2 && y1 > y2) { // end col < start col and end row > start row
         for (i = y1; i >= y2 - 1; i--) {
             if (i == y1) {
                 // First row (Top Header)
