@@ -27,8 +27,8 @@ fieldset {
 #displayTab {
     margin-top: 50px;
     overflow: auto;
-    max-width: 800px;
-    max-height: 600px;
+    max-width: 1000px;
+    max-height: 800px;
 }
 
 /* setup position of textbox */
