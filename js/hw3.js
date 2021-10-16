@@ -3,9 +3,10 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on Oct 15, 2021 at 11:00pm
+    Updated by ML on Oct 16, 2021 at 10:00am
 */
 
+// These variables used to determine if the form is valid or not
 let IS_VALID_FIRST_COLUMN = false;
 let IS_VALID_END_COLUMN = false;
 let IS_VALID_FIRST_ROW = false;
@@ -25,6 +26,7 @@ document.getElementById("btnGen").addEventListener("click", drawTable, false);
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
+#   Check is an integer number
 #   Check in range [-50, 50]
 ###################################
 */
@@ -65,6 +67,7 @@ function valFirstColumn() {
 #   Check valid end column
 #   Check is NULL
 #   Check not a digit
+#   Check is an integer number
 #   Check in range [-50, 50]
 ###################################
 */
@@ -105,6 +108,7 @@ function valEndColumn() {
 #   Check valid start row
 #   Check is NULL
 #   Check not a digit
+#   Check is an integer number
 #   Check in range [-50, 50]
 ###################################
 */
@@ -127,7 +131,7 @@ function valFirstRow() {
                 document.getElementById("fRow").style.borderColor = "red";
                 document.getElementById("valFRow").innerHTML = "Please enter a integer number.";
                 IS_VALID_FIRST_ROW = false;
-            }          
+            }
         } else {
             document.getElementById("fRow").style.borderColor = "red";
             document.getElementById("valFRow").innerHTML = "Please enter a digit.";
@@ -145,6 +149,7 @@ function valFirstRow() {
 #   Check valid end row
 #   Check is NULL
 #   Check not a digit
+#   Check is an integer number
 #   Check in range [-50, 50]
 ###################################
 */
@@ -186,10 +191,11 @@ function valEndRow() {
 ###################################
 */
 function drawTable() {
-    let fCol = document.getElementById("fCol").value;
-    let eCol = document.getElementById("eCol").value;
-    let fRow = document.getElementById("fRow").value;
-    let eRow = document.getElementById("eRow").value;
+    // Get values from inputs
+    let fCol = document.getElementById("fCol").value; // First Column
+    let eCol = document.getElementById("eCol").value; // End Column
+    let fRow = document.getElementById("fRow").value; // Start Row
+    let eRow = document.getElementById("eRow").value; // End Row
 
     // Validation
     valFirstColumn();
@@ -216,6 +222,8 @@ function drawTable() {
         document.getElementById("valECol").innerHTML = "";
         document.getElementById("valFRow").innerHTML = "";
         document.getElementById("valERow").innerHTML = "";
+
+        // Clear red borders
         document.getElementById("fCol").style.borderColor = "black";
         document.getElementById("eCol").style.borderColor = "black";
         document.getElementById("fRow").style.borderColor = "black";
@@ -227,18 +235,20 @@ function drawTable() {
             document.getElementById("myTable").remove();
         }
 
+        // Create table with id="myTable"
         let tab = document.createElement("TABLE");
         tab.setAttribute("id", "myTable");
 
+        // Add table to div.displayTab
         let container = document.getElementById("displayTab");
         container.appendChild(tab);
 
         // create rows
         let i, j, tr_index;
-        tr_index = 0; // index of the TR
+        tr_index = 0; // index of the TR element, used to determine the index of <tr>
 
-        // Check if end > start
-        if (fCol > eCol && fRow > eRow) { // end col > start col and end row > start row
+        // Check if start > end
+        if (fCol > eCol && fRow > eRow) { // start col > end col and start row > end row
             for (i = fRow; i >= eRow - 1; i--) {
                 if (i == fRow) {
                     // First row (Top Header)
@@ -262,18 +272,18 @@ function drawTable() {
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
                     cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
-                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
                     for (j = fCol; j >= eCol; j--) {
                         let cols = document.createElement("TD"); // create TD
                         cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
-                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
                     tr_index++;
                 }
             }
-        } else if (fCol > eCol && fRow <= eRow) { // end col > start col and end row <= start row
+        } else if (fCol > eCol && fRow <= eRow) { // start col > end col and start row <= end row
             for (i = fRow; i <= eRow + 1; i++) {
                 if (i == fRow) {
                     // First row (Top Header)
@@ -297,18 +307,18 @@ function drawTable() {
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
                     cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
-                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
                     for (j = fCol; j >= eCol; j--) {
                         let cols = document.createElement("TD"); // create TD
                         cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
-                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
                     tr_index++;
                 }
             }
-        } else if (fCol <= eCol && fRow > eRow) { // end col <= start col and end row > start row
+        } else if (fCol <= eCol && fRow > eRow) { // start col <= end col and end start > end row
             for (i = fRow; i >= eRow - 1; i--) {
                 if (i == fRow) {
                     // First row (Top Header)
@@ -332,18 +342,18 @@ function drawTable() {
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
                     cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
-                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
                     for (j = fCol; j <= eCol; j++) {
                         let cols = document.createElement("TD"); // create TD
                         cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
-                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
                     tr_index++;
                 }
             }
-        } else { // end col >= start col and end row >= start row
+        } else { // start col <= end col and start row <= end row
             for (i = fRow; i <= eRow + 1; i++) {
                 if (i == fRow) {
                     // First row (Top Header)
@@ -367,13 +377,13 @@ function drawTable() {
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
                     cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
-                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TR and TD to table
+                    tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD
                     for (j = fCol; j <= eCol; j++) {
                         let cols = document.createElement("TD"); // create TD
                         cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
-                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add it to table
+                        tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
                     tr_index++;
                 }
