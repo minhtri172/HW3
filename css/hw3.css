@@ -3,7 +3,7 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on Oct 3, 2021 at 11:00am
+    Updated by ML on Oct 15, 2021 at 11:00pm
 */
 #wrapper {
     width: 100%;
@@ -27,8 +27,8 @@ fieldset {
 #displayTab {
     margin-top: 50px;
     overflow: auto;
-    max-width: 1000px;
-    max-height: 800px;
+    max-width: 988px;
+    max-height: 772px;
 }
 
 /* setup position of textbox */
@@ -59,30 +59,34 @@ td {
     Style for first row (TOP HEADER) 
     Top header is fixed at top
     Make the border right is white, except the last square
+    z-index: 2 to measure the left header will display behind the top header
 */
 table > tr:first-child {
     background-color: black;
     color: white;
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
-table > tr:first-child > td + td {
+table > tr:first-child > td {
     border-right: 2px solid white;
     border-top: none;
 }
 
+/* No right white at last square */
 table > tr:first-child > td:last-child {
     border-right: 1px solid black;
 }
 
 /*
-    Style for first row (LEFT HEADER) 
-    Left header is fixed at top
-    Make the border right is white, except the last square
+    Style for first td at each row (LEFT HEADER) 
+    Left header is fixed at left
+    Make the border bottom is white, except the last square
 */
 table > tr:first-child > td:first-child {
     background-color: white;
+    border: none;
 }
 
 table > tr > td:first-child {
@@ -93,12 +97,9 @@ table > tr > td:first-child {
     left: 0;
 }
 
+/* No bottom white at last square */
 table > tr:last-child > td:first-child {
     border-bottom: 1px solid black;
-}
-
-table > tr:nth-child(1) > td:first-child {
-    border: none;
 }
 
 /* Display the table's content with yellow background (chequered)*/

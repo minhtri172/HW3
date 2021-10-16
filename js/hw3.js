@@ -3,7 +3,7 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on Oct 4, 2021 at 8:50pm
+    Updated by ML on Oct 15, 2021 at 11:00pm
 */
 
 let IS_VALID_FIRST_COLUMN = false;
@@ -12,10 +12,10 @@ let IS_VALID_FIRST_ROW = false;
 let IS_VALID_END_ROW = false;
 
 // Input
-document.getElementById("fCol").addEventListener("keyup", valFirstColumn, false);
-document.getElementById("eCol").addEventListener("keyup", valEndColumn, false);
-document.getElementById("fRow").addEventListener("keyup", valFirstRow, false);
-document.getElementById("eRow").addEventListener("keyup", valEndRow, false);
+document.getElementById("fCol").addEventListener("blur", valFirstColumn, false);
+document.getElementById("eCol").addEventListener("blur", valEndColumn, false);
+document.getElementById("fRow").addEventListener("blur", valFirstRow, false);
+document.getElementById("eRow").addEventListener("blur", valEndRow, false);
 
 // Button
 document.getElementById("btnGen").addEventListener("click", drawTable, false);
@@ -32,22 +32,31 @@ function valFirstColumn() {
     let fCol = document.getElementById("fCol").value;
     if (fCol != "") {
         if (!isNaN(fCol)) {
-            fCol = parseInt(fCol);
-            if (fCol >= -50 && fCol <= 50) {
-                document.getElementById("fCol").style.borderColor = "black";
-                document.getElementById("valFCol").innerHTML = "";
-                IS_VALID_FIRST_COLUMN = true;
+            fCol = Number(fCol);
+            if (Number.isInteger(fCol)) {
+                if (fCol >= -50 && fCol <= 50) {
+                    document.getElementById("fCol").style.borderColor = "black";
+                    document.getElementById("valFCol").innerHTML = "";
+                    IS_VALID_FIRST_COLUMN = true;
+                } else {
+                    document.getElementById("fCol").style.borderColor = "red";
+                    document.getElementById("valFCol").innerHTML = "Please enter a number between -50 and 50.";
+                    IS_VALID_FIRST_COLUMN = false;
+                }
             } else {
                 document.getElementById("fCol").style.borderColor = "red";
-                document.getElementById("valFCol").innerHTML = "Please enter a number between -50 and 50.";
+                document.getElementById("valFCol").innerHTML = "Please enter a integer number.";
+                IS_VALID_FIRST_COLUMN = false;
             }
         } else {
             document.getElementById("fCol").style.borderColor = "red";
             document.getElementById("valFCol").innerHTML = "Please enter a digit.";
+            IS_VALID_FIRST_COLUMN = false;
         }
     } else {
         document.getElementById("fCol").style.borderColor = "red";
         document.getElementById("valFCol").innerHTML = "This field is required.";
+        IS_VALID_FIRST_COLUMN = false;
     }
 }
 
@@ -63,22 +72,31 @@ function valEndColumn() {
     let eCol = document.getElementById("eCol").value;
     if (eCol != "") {
         if (!isNaN(eCol)) {
-            eCol = parseInt(eCol);
-            if (eCol >= -50 && eCol <= 50) {
-                document.getElementById("eCol").style.borderColor = "black";
-                document.getElementById("valECol").innerHTML = "";
-                IS_VALID_END_COLUMN = true;
+            eCol = Number(eCol);
+            if (Number.isInteger(eCol)) {
+                if (eCol >= -50 && eCol <= 50) {
+                    document.getElementById("eCol").style.borderColor = "black";
+                    document.getElementById("valECol").innerHTML = "";
+                    IS_VALID_END_COLUMN = true;
+                } else {
+                    document.getElementById("eCol").style.borderColor = "red";
+                    document.getElementById("valECol").innerHTML = "Please enter a number between -50 and 50.";
+                    IS_VALID_END_COLUMN = false;
+                }
             } else {
                 document.getElementById("eCol").style.borderColor = "red";
-                document.getElementById("valECol").innerHTML = "Please enter a number between -50 and 50.";
+                document.getElementById("valECol").innerHTML = "Please enter a integer number.";
+                IS_VALID_END_COLUMN = false;
             }
         } else {
             document.getElementById("eCol").style.borderColor = "red";
             document.getElementById("valECol").innerHTML = "Please enter a digit.";
+            IS_VALID_END_COLUMN = false;
         }
     } else {
         document.getElementById("eCol").style.borderColor = "red";
         document.getElementById("valECol").innerHTML = "This field is required.";
+        IS_VALID_END_COLUMN = false;
     }
 }
 
@@ -94,22 +112,31 @@ function valFirstRow() {
     let fRow = document.getElementById("fRow").value;
     if (fRow != "") {
         if (!isNaN(fRow)) {
-            fRow = parseInt(fRow);
-            if (fRow >= -50 && fRow <= 50) {
-                document.getElementById("fRow").style.borderColor = "black";
-                document.getElementById("valFRow").innerHTML = "";
-                IS_VALID_FIRST_ROW = true;
+            fRow = Number(fRow);
+            if (Number.isInteger(fRow)) {
+                if (fRow >= -50 && fRow <= 50) {
+                    document.getElementById("fRow").style.borderColor = "black";
+                    document.getElementById("valFRow").innerHTML = "";
+                    IS_VALID_FIRST_ROW = true;
+                } else {
+                    document.getElementById("fRow").style.borderColor = "red";
+                    document.getElementById("valFRow").innerHTML = "Please enter a number between -50 and 50.";
+                    IS_VALID_FIRST_ROW = false;
+                }
             } else {
                 document.getElementById("fRow").style.borderColor = "red";
-                document.getElementById("valFRow").innerHTML = "Please enter a number between -50 and 50.";
-            }
+                document.getElementById("valFRow").innerHTML = "Please enter a integer number.";
+                IS_VALID_FIRST_ROW = false;
+            }          
         } else {
             document.getElementById("fRow").style.borderColor = "red";
             document.getElementById("valFRow").innerHTML = "Please enter a digit.";
+            IS_VALID_FIRST_ROW = false;
         }
     } else {
         document.getElementById("fRow").style.borderColor = "red";
         document.getElementById("valFRow").innerHTML = "This field is required.";
+        IS_VALID_FIRST_ROW = false;
     }
 }
 
@@ -124,23 +151,32 @@ function valFirstRow() {
 function valEndRow() {
     let eRow = document.getElementById("eRow").value;
     if (eRow != "") {
+        eRow = Number(eRow);
         if (!isNaN(eRow)) {
-            eRow = parseInt(eRow);
-            if (eRow >= -50 && eRow <= 50) {
-                document.getElementById("eRow").style.borderColor = "black";
-                document.getElementById("valERow").innerHTML = "";
-                IS_VALID_END_ROW = true;
+            if (Number.isInteger(eRow)) {
+                if (eRow >= -50 && eRow <= 50) {
+                    document.getElementById("eRow").style.borderColor = "black";
+                    document.getElementById("valERow").innerHTML = "";
+                    IS_VALID_END_ROW = true;
+                } else {
+                    document.getElementById("eRow").style.borderColor = "red";
+                    document.getElementById("valERow").innerHTML = "Please enter a number between -50 and 50.";
+                    IS_VALID_END_ROW = false;
+                }
             } else {
                 document.getElementById("eRow").style.borderColor = "red";
-                document.getElementById("valERow").innerHTML = "Please enter a number between -50 and 50.";
+                document.getElementById("valERow").innerHTML = "Please enter a integer number.";
+                IS_VALID_END_ROW = false;
             }
         } else {
             document.getElementById("eRow").style.borderColor = "red";
             document.getElementById("valERow").innerHTML = "Please enter a digit.";
+            IS_VALID_END_ROW = false;
         }
     } else {
         document.getElementById("eRow").style.borderColor = "red";
         document.getElementById("valERow").innerHTML = "This field is required.";
+        IS_VALID_END_ROW = false;
     }
 }
 
@@ -154,6 +190,12 @@ function drawTable() {
     let eCol = document.getElementById("eCol").value;
     let fRow = document.getElementById("fRow").value;
     let eRow = document.getElementById("eRow").value;
+
+    // Validation
+    valFirstColumn();
+    valEndColumn();
+    valFirstRow();
+    valEndRow();
 
     // debug
     /*console.log("first col: " + fCol);
