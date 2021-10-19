@@ -7,43 +7,47 @@
 */
 
 // These variables used to determine if the form is valid or not
+// If the form is valid, create the table; otherwise, display error messages
 let IS_VALID_FIRST_COLUMN = false;
 let IS_VALID_END_COLUMN = false;
 let IS_VALID_FIRST_ROW = false;
 let IS_VALID_END_ROW = false;
 
-// Input
+// Inputs: if inputs lost focus, they will call functions to validate the values
 document.getElementById("fCol").addEventListener("blur", valFirstColumn, false);
 document.getElementById("eCol").addEventListener("blur", valEndColumn, false);
 document.getElementById("fRow").addEventListener("blur", valFirstRow, false);
 document.getElementById("eRow").addEventListener("blur", valEndRow, false);
 
-// Button
+// Button generate the table (click)
 document.getElementById("btnGen").addEventListener("click", drawTable, false);
 
 /*
-###################################
+################################################
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
 #   Check is an integer number
 #   Check in range [-50, 50]
-###################################
+#   fCol: get the start column value from users
+#   valFCol: display the error message
+################################################
 */
 function valFirstColumn() {
-    let fCol = document.getElementById("fCol").value;
-    if (fCol != "") {
-        if (!isNaN(fCol)) {
-            fCol = Number(fCol);
-            if (Number.isInteger(fCol)) {
-                if (fCol >= -50 && fCol <= 50) {
-                    document.getElementById("fCol").style.borderColor = "black";
-                    document.getElementById("valFCol").innerHTML = "";
-                    IS_VALID_FIRST_COLUMN = true;
+    let fCol = document.getElementById("fCol").value; // get start column value
+    if (fCol != "") { // check if the value is not null
+        if (!isNaN(fCol)) { // check if the value is a digit
+            fCol = Number(fCol); // convert to number
+            if (Number.isInteger(fCol)) { // check if the value is integer
+                if (fCol >= -50 && fCol <= 50) { // check if the value is in the range[-50, 50]
+                    // Here - The first column is valid
+                    document.getElementById("fCol").style.borderColor = "black"; // set the input border back to black
+                    document.getElementById("valFCol").innerHTML = ""; // delete the message
+                    IS_VALID_FIRST_COLUMN = true; // valid value
                 } else {
-                    document.getElementById("fCol").style.borderColor = "red";
+                    document.getElementById("fCol").style.borderColor = "red"; // set the input border to red
                     document.getElementById("valFCol").innerHTML = "Please enter a number between -50 and 50.";
-                    IS_VALID_FIRST_COLUMN = false;
+                    IS_VALID_FIRST_COLUMN = false; // invalid value
                 }
             } else {
                 document.getElementById("fCol").style.borderColor = "red";
@@ -63,13 +67,15 @@ function valFirstColumn() {
 }
 
 /*
-###################################
-#   Check valid end column
+################################################
+#   Check valid start column
 #   Check is NULL
 #   Check not a digit
 #   Check is an integer number
 #   Check in range [-50, 50]
-###################################
+#   eCol: get the end column value from users
+#   valECol: display the error message
+################################################
 */
 function valEndColumn() {
     let eCol = document.getElementById("eCol").value;
@@ -78,6 +84,7 @@ function valEndColumn() {
             eCol = Number(eCol);
             if (Number.isInteger(eCol)) {
                 if (eCol >= -50 && eCol <= 50) {
+                    // Here - The end column is valid
                     document.getElementById("eCol").style.borderColor = "black";
                     document.getElementById("valECol").innerHTML = "";
                     IS_VALID_END_COLUMN = true;
@@ -104,13 +111,15 @@ function valEndColumn() {
 }
 
 /*
-###################################
-#   Check valid start row
+################################################
+#   Check valid start column
 #   Check is NULL
 #   Check not a digit
 #   Check is an integer number
 #   Check in range [-50, 50]
-###################################
+#   fRow: get the first row value from users
+#   valFRow: display the error message
+################################################
 */
 function valFirstRow() {
     let fRow = document.getElementById("fRow").value;
@@ -119,6 +128,7 @@ function valFirstRow() {
             fRow = Number(fRow);
             if (Number.isInteger(fRow)) {
                 if (fRow >= -50 && fRow <= 50) {
+                    // Here - The first row is valid
                     document.getElementById("fRow").style.borderColor = "black";
                     document.getElementById("valFRow").innerHTML = "";
                     IS_VALID_FIRST_ROW = true;
@@ -145,13 +155,15 @@ function valFirstRow() {
 }
 
 /*
-###################################
-#   Check valid end row
+################################################
+#   Check valid start column
 #   Check is NULL
 #   Check not a digit
 #   Check is an integer number
 #   Check in range [-50, 50]
-###################################
+#   eRow: get the end row value from users
+#   valERow: display the error message
+################################################
 */
 function valEndRow() {
     let eRow = document.getElementById("eRow").value;
@@ -160,6 +172,7 @@ function valEndRow() {
         if (!isNaN(eRow)) {
             if (Number.isInteger(eRow)) {
                 if (eRow >= -50 && eRow <= 50) {
+                    // Here - The end row is valid, the border of the input change from red to black
                     document.getElementById("eRow").style.borderColor = "black";
                     document.getElementById("valERow").innerHTML = "";
                     IS_VALID_END_ROW = true;
@@ -210,6 +223,8 @@ function drawTable() {
     console.log("end row: " + eRow);*/
 
     // check validation
+    // If all IS_VALID_FIRST_COLUMN, IS_VALID_END_COLUMN, IS_VALID_FIRST_ROW, IS_VALID_END_ROW are true
+    // that means the form is valid, so generate the table
     if (IS_VALID_FIRST_COLUMN && IS_VALID_END_COLUMN && IS_VALID_FIRST_ROW && IS_VALID_END_ROW) {
         // Convert from string to integer
         fCol = parseInt(fCol);
@@ -229,7 +244,7 @@ function drawTable() {
         document.getElementById("fRow").style.borderColor = "black";
         document.getElementById("eRow").style.borderColor = "black";
 
-        // create table
+        // CREATE TABLE
         // delete the table before create a new one
         if (document.getElementById('myTable') !== null) {
             document.getElementById("myTable").remove();
@@ -247,7 +262,7 @@ function drawTable() {
         let i, j, tr_index;
         tr_index = 0; // index of the TR element, used to determine the index of <tr>
 
-        // Check if start > end
+        // This code measure the table is created if users input start values > end values
         if (fCol > eCol && fRow > eRow) { // start col > end col and start row > end row
             for (i = fRow; i >= eRow - 1; i--) {
                 if (i == fRow) {
@@ -353,7 +368,7 @@ function drawTable() {
                     tr_index++;
                 }
             }
-        } else { // start col <= end col and start row <= end row
+        } else { // start col <= end col and start row <= end row (normal case)
             for (i = fRow; i <= eRow + 1; i++) {
                 if (i == fRow) {
                     // First row (Top Header)

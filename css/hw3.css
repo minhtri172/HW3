@@ -3,19 +3,15 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on Oct 16, 2021 at 10:00am
+    Updated by ML on Oct 19, 2021 at 2:00pm
 */
 
-#wrapper {
-    width: 100%;
-}
-
+/* make the title is bigger */
 legend {
     font-size: 120%;
 }
 
 /* Dislay the form on the left */
-
 form {
     float: left;
 }
@@ -34,7 +30,6 @@ fieldset {
 }
 
 /* setup position of textboxes */
-
 #fCol, #fRow {
     margin-left: 5px;
 }
@@ -45,14 +40,12 @@ fieldset {
 }
 
 /* content of the table is middle */
-
 table {
     text-align: center;
     border-collapse: collapse;
 }
 
 /* Measure the table is readable */
-
 td {
     border: 1px solid black;
     max-width: 150px;
@@ -64,25 +57,23 @@ td {
     Style for first row (TOP HEADER) 
     Top header is fixed at top
     Make the border right is white, except the last square
-    z-index: 2 to measure the left header will display behind the top header (scroll down)
+    z-index: 1 to measure the left header will display behind the top header (scroll down)
 */
-
-table>tr:first-child {
+table > tr:first-child {
     background-color: black;
     color: white;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
-table>tr:first-child>td {
+table > tr:first-child > td {
     border-right: 2px solid white;
     border-top: none;
 }
 
 /* No right white at last square */
-
-table>tr:first-child>td:last-child {
+table > tr:first-child > td:last-child {
     border-right: 1px solid black;
 }
 
@@ -91,13 +82,12 @@ table>tr:first-child>td:last-child {
     Left header is fixed at left
     Make the border bottom is white, except the last square
 */
-
-table>tr:first-child>td:first-child {
+table > tr:first-child > td:first-child {
     background-color: white;
     border: none;
 }
 
-table>tr>td:first-child {
+table > tr > td:first-child {
     background-color: black;
     color: white;
     border-bottom: 2px solid white;
@@ -106,37 +96,35 @@ table>tr>td:first-child {
 }
 
 /* No bottom white at last square */
-
-table>tr:last-child>td:first-child {
+table > tr:last-child > td:first-child {
     border-bottom: 1px solid black;
 }
 
 /* Display the table's content with yellow background (chequered)*/
-
-table>tr:not(tr:first-child):nth-child(odd)>td:not(td:first-child):nth-child(even) {
+/* skip the top header, pick the odd tr, then skip the left header, then pick the even td */
+table > tr:not(tr:first-child):nth-child(odd) > td:not(td:first-child):nth-child(even) {
     background-color: yellow;
 }
 
-table>tr:not(tr:first-child):nth-child(even)>td:not(td:first-child):nth-child(odd) {
+/* skip the top header, pick the even tr, then skip the left header, then pick the odd td */
+table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-child(odd) {
     background-color: yellow;
 }
 
 /* Style for the button */
-
 button {
     margin-top: 10px;
     margin-left: 44px;
 }
 
 /* Style for validation labels */
-
 #valFCol, #valECol, #valFRow, #valERow {
     color: red;
     margin-left: 10px;
 }
 
+/* Display the table in different screen size */
 /* For screen size >= 768px */
-
 @media only screen and (min-width: 768px) {
     #displayTab {
         max-width: 448px;
@@ -148,7 +136,6 @@ button {
 }
 
 /* For screen size >= 992px */
-
 @media only screen and (min-width: 992px) {
     #displayTab {
         max-width: 664px;
@@ -160,7 +147,6 @@ button {
 }
 
 /* For screen size >= 1200px */
-
 @media only screen and (min-width: 1200px) {
     #displayTab {
         max-width: 934px;
