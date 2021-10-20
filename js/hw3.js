@@ -199,9 +199,10 @@ function valEndRow() {
 }
 
 /*
-###################################
-#   Draw the Dynamic Table
-###################################
+###########################################
+#   Create the Dynamic Table
+#   Valid the form before create the table
+###########################################
 */
 function drawTable() {
     // Get values from inputs
@@ -260,9 +261,10 @@ function drawTable() {
 
         // create rows
         let i, j, tr_index;
-        tr_index = 0; // index of the TR element, used to determine the index of <tr>
+        tr_index = 0; // index of the TR element (index of rows), used to determine the index of <tr>
 
-        // This code measure the table is created if users input start values > end values
+        // This code measure the table is still created 
+        // if users input start values > end values
         if (fCol > eCol && fRow > eRow) { // start col > end col and start row > end row
             for (i = fRow; i >= eRow - 1; i--) {
                 if (i == fRow) {
@@ -275,10 +277,10 @@ function drawTable() {
                     // Create other TD on the first row
                     for (j = fCol; j >= eCol; j--) {
                         let cols = document.createElement("TD");
-                        cols.appendChild(document.createTextNode(j));
+                        cols.appendChild(document.createTextNode(j)); // add values
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 } else {
                     // rows 2nd and more
                     let rows = document.createElement("TR"); // create TR
@@ -286,7 +288,9 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
+                    
+                    // i + 1 because we skip the first row, so we need to +1 (going down)
+                    cols.appendChild(document.createTextNode(i + 1)); // add the content to TD
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
@@ -295,7 +299,7 @@ function drawTable() {
                         cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 }
             }
         } else if (fCol > eCol && fRow <= eRow) { // start col > end col and start row <= end row
@@ -310,10 +314,10 @@ function drawTable() {
                     // Create other TD on the first row
                     for (j = fCol; j >= eCol; j--) {
                         let cols = document.createElement("TD");
-                        cols.appendChild(document.createTextNode(j));
+                        cols.appendChild(document.createTextNode(j)); // add values
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 } else {
                     // rows 2nd and more
                     let rows = document.createElement("TR"); // create TR
@@ -321,7 +325,9 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
+                    
+                    // i - 1 because we skip the first header (going up)
+                    cols.appendChild(document.createTextNode(i - 1)); // add the content to TD
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
@@ -330,7 +336,7 @@ function drawTable() {
                         cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 }
             }
         } else if (fCol <= eCol && fRow > eRow) { // start col <= end col and end start > end row
@@ -345,7 +351,7 @@ function drawTable() {
                     // Create other TD on the first row
                     for (j = fCol; j <= eCol; j++) {
                         let cols = document.createElement("TD");
-                        cols.appendChild(document.createTextNode(j));
+                        cols.appendChild(document.createTextNode(j)); // add values
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
                     }
                     tr_index++;
@@ -356,7 +362,7 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    cols.appendChild(document.createTextNode(i + 1)); // // add the content to TD
+                    cols.appendChild(document.createTextNode(i + 1)); // add the content to TD
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD (columns)
@@ -365,7 +371,7 @@ function drawTable() {
                         cols.appendChild(document.createTextNode((i + 1) * j)); // create content of TD (calculate the multiplication)
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 }
             }
         } else { // start col <= end col and start row <= end row (normal case)
@@ -380,10 +386,10 @@ function drawTable() {
                     // Create other TD on the first row
                     for (j = fCol; j <= eCol; j++) {
                         let cols = document.createElement("TD");
-                        cols.appendChild(document.createTextNode(j));
+                        cols.appendChild(document.createTextNode(j)); // add values
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols);
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 } else {
                     // rows 2nd and more
                     let rows = document.createElement("TR"); // create TR
@@ -391,7 +397,9 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    cols.appendChild(document.createTextNode(i - 1)); // // add the content to TD
+                    // add the content to TD
+                    // i - 1 because we added the first row, so we need to -1
+                    cols.appendChild(document.createTextNode(i - 1)); 
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD
@@ -400,7 +408,7 @@ function drawTable() {
                         cols.appendChild(document.createTextNode((i - 1) * j)); // create content of TD (calculate the multiplication)
                         tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
                     }
-                    tr_index++;
+                    tr_index++; // increase the index of tr
                 }
             }
         }
