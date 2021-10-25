@@ -3,7 +3,7 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on Oct 16, 2021 at 10:00am
+    Updated by ML on Oct 25, 2021 at 10:00am
 */
 
 // These variables used to determine if the form is valid or not
@@ -23,20 +23,22 @@ document.getElementById("eRow").addEventListener("blur", valEndRow, false);
 document.getElementById("btnGen").addEventListener("click", drawTable, false);
 
 /*
-################################################
+##############################################################################################
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
+#   Check if start with 0 or 00
+#   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
 #   Check is an integer number
 #   Check in range [-50, 50]
 #   fCol: get the start column value from users
 #   valFCol: display the error message
-################################################
+###############################################################################################
 */
 function valFirstColumn() {
     let fCol = document.getElementById("fCol").value; // get start column value
     if (fCol != "") { // check if the value is not null
-        if (!isNaN(fCol)) { // check if the value is a digit
+        if (!isNaN(fCol) && !fCol.match(/^(?:0|00|-0|-00)\d+$/)) { // check if the value is a digit
             fCol = Number(fCol); // convert to number
             if (Number.isInteger(fCol)) { // check if the value is integer
                 if (fCol >= -50 && fCol <= 50) { // check if the value is in the range[-50, 50]
@@ -67,20 +69,22 @@ function valFirstColumn() {
 }
 
 /*
-################################################
+##############################################################################################
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
+#   Check if start with 0 or 00
+#   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
 #   Check is an integer number
 #   Check in range [-50, 50]
 #   eCol: get the end column value from users
 #   valECol: display the error message
-################################################
+##############################################################################################
 */
 function valEndColumn() {
     let eCol = document.getElementById("eCol").value;
     if (eCol != "") {
-        if (!isNaN(eCol)) {
+        if (!isNaN(eCol) && !eCol.match(/^(?:0|00|-0|-00)\d+$/)) {
             eCol = Number(eCol);
             if (Number.isInteger(eCol)) {
                 if (eCol >= -50 && eCol <= 50) {
@@ -111,20 +115,22 @@ function valEndColumn() {
 }
 
 /*
-################################################
+#############################################################################################
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
+#   Check if start with 0 or 00
+#   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
 #   Check is an integer number
 #   Check in range [-50, 50]
 #   fRow: get the first row value from users
 #   valFRow: display the error message
-################################################
+##############################################################################################
 */
 function valFirstRow() {
     let fRow = document.getElementById("fRow").value;
     if (fRow != "") {
-        if (!isNaN(fRow)) {
+        if (!isNaN(fRow) && !fRow.match(/^(?:0|00|-0|-00)\d+$/)) {
             fRow = Number(fRow);
             if (Number.isInteger(fRow)) {
                 if (fRow >= -50 && fRow <= 50) {
@@ -155,21 +161,23 @@ function valFirstRow() {
 }
 
 /*
-################################################
+##############################################################################################
 #   Check valid start column
 #   Check is NULL
 #   Check not a digit
+#   Check if start with 0 or 00
+#   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
 #   Check is an integer number
 #   Check in range [-50, 50]
 #   eRow: get the end row value from users
 #   valERow: display the error message
-################################################
+###############################################################################################
 */
 function valEndRow() {
     let eRow = document.getElementById("eRow").value;
     if (eRow != "") {
-        eRow = Number(eRow);
-        if (!isNaN(eRow)) {
+        if (!isNaN(eRow) && !eRow.match(/^(?:0|00|-0|-00)\d+$/)) {
+            eRow = Number(eRow);
             if (Number.isInteger(eRow)) {
                 if (eRow >= -50 && eRow <= 50) {
                     // Here - The end row is valid, the border of the input change from red to black
@@ -288,7 +296,7 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    
+
                     // i + 1 because we skip the first row, so we need to +1 (going down)
                     cols.appendChild(document.createTextNode(i + 1)); // add the content to TD
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
@@ -325,7 +333,7 @@ function drawTable() {
 
                     // Left Header
                     let cols = document.createElement("TD"); // create TD
-                    
+
                     // i - 1 because we skip the first header (going up)
                     cols.appendChild(document.createTextNode(i - 1)); // add the content to TD
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
@@ -399,7 +407,7 @@ function drawTable() {
                     let cols = document.createElement("TD"); // create TD
                     // add the content to TD
                     // i - 1 because we added the first row, so we need to -1
-                    cols.appendChild(document.createTextNode(i - 1)); 
+                    cols.appendChild(document.createTextNode(i - 1));
                     tab.getElementsByTagName("TR")[tr_index].appendChild(cols); // add TD to TR
 
                     // Create other next TD
