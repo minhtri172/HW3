@@ -25,60 +25,62 @@ document.getElementById("btnGen").addEventListener("click", drawTable, false);
 /*
 ##############################################################################################
 #   Check valid start column
-#   Check is NULL
-#   Check not a digit
-#   Check if start with 0 or 00
+#   Check if the input is not empty
+#   Check if the input is a number
+#   Check if the number start with 0 or 00
 #   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
-#   Check is an integer number
-#   Check in range [-50, 50]
+#   Check if the number is an integer number
+#   Check if the number is in the range [-50, 50]
 #   fCol: get the start column value from users
 #   valFCol: display the error message
+#   IS_VALID_FIRST_COLUMN set to true if the input is valid; otherwise, set to false
 ###############################################################################################
 */
 function valFirstColumn() {
     let fCol = document.getElementById("fCol").value; // get start column value
     if (fCol != "") { // check if the value is not null
-        if (!isNaN(fCol) && !fCol.match(/^(?:0|00|-0|-00)\d+$/)) { // check if the value is a digit
+        if (!isNaN(fCol) && !fCol.match(/^(?:0|00|-0|-00)\d+$/)) { // check if the value is a digit (not accept start wih 0 or 00)
             fCol = Number(fCol); // convert to number
             if (Number.isInteger(fCol)) { // check if the value is integer
                 if (fCol >= -50 && fCol <= 50) { // check if the value is in the range[-50, 50]
                     // Here - The first column is valid
-                    document.getElementById("fCol").style.borderColor = "black"; // set the input border back to black
+                    document.getElementById("fCol").style.borderColor = "black"; // set the input border to black (means valid input)
                     document.getElementById("valFCol").innerHTML = ""; // delete the message
-                    IS_VALID_FIRST_COLUMN = true; // valid value
+                    IS_VALID_FIRST_COLUMN = true; // valid input
                 } else {
-                    document.getElementById("fCol").style.borderColor = "red"; // set the input border to red
-                    document.getElementById("valFCol").innerHTML = "Please enter a number between -50 and 50.";
-                    IS_VALID_FIRST_COLUMN = false; // invalid value
+                    document.getElementById("fCol").style.borderColor = "red"; // set the input border to red (means invalid input)
+                    document.getElementById("valFCol").innerHTML = "Please enter a number between -50 and 50."; // display error message
+                    IS_VALID_FIRST_COLUMN = false; // invalid input
                 }
             } else {
-                document.getElementById("fCol").style.borderColor = "red";
-                document.getElementById("valFCol").innerHTML = "Please enter a integer number.";
-                IS_VALID_FIRST_COLUMN = false;
+                document.getElementById("fCol").style.borderColor = "red"; // set the input border to red (means invalid input)
+                document.getElementById("valFCol").innerHTML = "Please enter a integer number."; // display error message
+                IS_VALID_FIRST_COLUMN = false; // invalid input
             }
         } else {
-            document.getElementById("fCol").style.borderColor = "red";
-            document.getElementById("valFCol").innerHTML = "Please enter a digit.";
-            IS_VALID_FIRST_COLUMN = false;
+            document.getElementById("fCol").style.borderColor = "red"; // set the input border to red (means invalid input)
+            document.getElementById("valFCol").innerHTML = "Please enter a number."; // display error message
+            IS_VALID_FIRST_COLUMN = false; // invalid input
         }
     } else {
-        document.getElementById("fCol").style.borderColor = "red";
-        document.getElementById("valFCol").innerHTML = "This field is required.";
-        IS_VALID_FIRST_COLUMN = false;
+        document.getElementById("fCol").style.borderColor = "red"; // set the input border to red (means invalid input)
+        document.getElementById("valFCol").innerHTML = "This field is required."; // display error message
+        IS_VALID_FIRST_COLUMN = false; // invalid input
     }
 }
 
 /*
 ##############################################################################################
 #   Check valid start column
-#   Check is NULL
-#   Check not a digit
-#   Check if start with 0 or 00
+#   Check if the input is not empty
+#   Check if the input is a number
+#   Check if the number start with 0 or 00
 #   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
-#   Check is an integer number
-#   Check in range [-50, 50]
+#   Check if the number is an integer number
+#   Check if the number is in the range [-50, 50]
 #   eCol: get the end column value from users
 #   valECol: display the error message
+#   IS_VALID_END_COLUMN set to true if the input is valid; otherwise, set to false
 ##############################################################################################
 */
 function valEndColumn() {
@@ -104,7 +106,7 @@ function valEndColumn() {
             }
         } else {
             document.getElementById("eCol").style.borderColor = "red";
-            document.getElementById("valECol").innerHTML = "Please enter a digit.";
+            document.getElementById("valECol").innerHTML = "Please enter a number.";
             IS_VALID_END_COLUMN = false;
         }
     } else {
@@ -117,14 +119,15 @@ function valEndColumn() {
 /*
 #############################################################################################
 #   Check valid start column
-#   Check is NULL
-#   Check not a digit
-#   Check if start with 0 or 00
+#   Check if the input is not empty
+#   Check if the input is a number
+#   Check if the number start with 0 or 00
 #   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
-#   Check is an integer number
-#   Check in range [-50, 50]
+#   Check if the number is an integer number
+#   Check if the number is in the range [-50, 50]
 #   fRow: get the first row value from users
 #   valFRow: display the error message
+#   IS_VALID_FIRST_ROW set to true if the input is valid; otherwise, set to false
 ##############################################################################################
 */
 function valFirstRow() {
@@ -150,7 +153,7 @@ function valFirstRow() {
             }
         } else {
             document.getElementById("fRow").style.borderColor = "red";
-            document.getElementById("valFRow").innerHTML = "Please enter a digit.";
+            document.getElementById("valFRow").innerHTML = "Please enter a number.";
             IS_VALID_FIRST_ROW = false;
         }
     } else {
@@ -163,14 +166,15 @@ function valFirstRow() {
 /*
 ##############################################################################################
 #   Check valid start column
-#   Check is NULL
-#   Check not a digit
-#   Check if start with 0 or 00
+#   Check if the input is not empty
+#   Check if the input is a number
+#   Check if the number start with 0 or 00
 #   referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
-#   Check is an integer number
-#   Check in range [-50, 50]
+#   Check if the number is an integer number
+#   Check if the number is in the range [-50, 50]
 #   eRow: get the end row value from users
 #   valERow: display the error message
+#   IS_VALID_END_ROW set to true if the input is valid; otherwise, set to false
 ###############################################################################################
 */
 function valEndRow() {
@@ -180,7 +184,7 @@ function valEndRow() {
             eRow = Number(eRow);
             if (Number.isInteger(eRow)) {
                 if (eRow >= -50 && eRow <= 50) {
-                    // Here - The end row is valid, the border of the input change from red to black
+                    // Here - The end row is valid
                     document.getElementById("eRow").style.borderColor = "black";
                     document.getElementById("valERow").innerHTML = "";
                     IS_VALID_END_ROW = true;
@@ -196,7 +200,7 @@ function valEndRow() {
             }
         } else {
             document.getElementById("eRow").style.borderColor = "red";
-            document.getElementById("valERow").innerHTML = "Please enter a digit.";
+            document.getElementById("valERow").innerHTML = "Please enter a number.";
             IS_VALID_END_ROW = false;
         }
     } else {
